@@ -2,14 +2,14 @@ import os
 from setuptools import setup
 
 
-with open(os.path.join("README.md")) as file:
+with open(os.path.join("README.rst")) as file:
     readme = file.read()
 
 
 setup(
     name="onany",
     packages=["onany"],
-    version="0.1.0",
+    version="0.1.2",
     license="MIT",
     description="Event manager library",
     long_description=readme,
