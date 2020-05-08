@@ -27,3 +27,18 @@ To listen and dispatch events is very simple:
         first="param",
         second="param",
         third="param")
+
+Should I wait all callbacks to end ?
+====================================
+Nope. You can "threadily" dispatch your events so they 
+don't need to be waited for the main process.
+
+.. code :: python
+
+    from onany import disthread, listener
+
+    @listener("event.name")
+    def on_event_name():
+        print("I'm gonna be executed on another thread")
+
+    >>> disthread("event.name")

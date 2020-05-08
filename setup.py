@@ -9,7 +9,7 @@ with open(os.path.join("README.rst")) as file:
 setup(
     name="onany",
     packages=["onany"],
-    version="0.1.2",
+    version="0.1.3",
     license="MIT",
     description="Event manager library",
     long_description=readme,
