@@ -16,7 +16,10 @@ def disthread(event: str, *args, **kwargs) -> Thread:
     return thread
 
 
-def listener(event: str) -> callable:
+def listener(event: str, callback: callable = None) -> callable:
+    if callback:
+        return OnAny.listen(event, callback)
+
     def wrapper(callback: callable) -> None:
         return OnAny.listen(event, callback)
 
