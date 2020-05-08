@@ -42,3 +42,53 @@ don't need to be waited for the main process.
         print("I'm gonna be executed on another thread")
 
     >>> disthread("event.name")
+
+Webhook listener
+================
+It's possible declare webhook rules to be dispatched as an inside event.
+This webhook events can be a powerful tool for communicating to third-party
+clients that an event is ended.
+
+**Listener rules**:
+
+- **route**
+    - **type**: str
+    - **description**: API route
+    - **required**
+- **callback**
+    - **type**: callable/function
+    - **description**: Receives request response object if needed
+
+When **dispatch** or **disthread** is called is possible define some attributes to
+be sent in the external API call.
+
+**Attributes**:
+
+- **data**
+    - **type**: dict
+    - **description**: JSON body
+- **headers**
+    - **type**: dict
+    - **description**: Dictionary declaring headers to be sent
+
+**Example**:
+
+.. code :: python
+
+    from onany import dispatch, listener
+
+    def event_name_webhook_response(response):
+        if response.status_code == 200:
+            print("My hook listener worked")
+
+    listener("event.name", {
+        "route": "https://my.api/hooks",
+        "callback": event_name_webhook_response
+    })
+
+    >>> dispatch("event.name", data={
+        "some": "payload",
+        "I": "wanna",
+        "send": "to",
+        "hooked": "api"
+    })
