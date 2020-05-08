@@ -2,6 +2,19 @@
 OnAny... thing happening
 ========================
 
+.. image:: https://github.com/vinyguedess/onany/workflows/OnAny%20CI%20Test/badge.svg
+    :target: https://github.com/vinyguedess/onany/actions?query=workflow%3A%22OnAny+CI+Test%22
+    :alt: Build
+
+.. image:: https://api.codeclimate.com/v1/badges/c9f11d97d33668424612/maintainability
+   :target: https://codeclimate.com/github/vinyguedess/onany/maintainability
+   :alt: Maintainability
+
+.. image:: https://api.codeclimate.com/v1/badges/c9f11d97d33668424612/test_coverage
+   :target: https://codeclimate.com/github/vinyguedess/onany/test_coverage
+   :alt: Test Coverage
+
+
 OnAny is a simple yet powerful event manager library, where you can declare listeners and dispatch as much events as needed to them.
 
 How To
