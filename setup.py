@@ -9,7 +9,8 @@ with open(os.path.join("README.rst")) as file:
 setup(
     name="onany",
     packages=["onany"],
-    version="0.1.3",
+    version=os.getenv("GITHUB_REF") \
+        .replace("refs/tags/v", ""),
     license="MIT",
     description="Event manager library",
     long_description=readme,

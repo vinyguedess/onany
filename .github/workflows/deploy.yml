@@ -3,8 +3,7 @@
 
 name: OnAny Deploy
 
-on:
-  release:
+on: [release]
 
 jobs:
   build:
@@ -37,3 +36,14 @@ jobs:
       run: |
         pip install coverage
         make citest
+
+    - name: Deploy on pypi
+      env:
+        PYPI_USERNAME: ${{ secrets.PYPI_USERNAME }}
+        PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+      run: |
+        echo -e "[pypi]" >> ~/.pypirc
+        echo -e "username = $PYPI_USERNAME" >> ~/.pypirc
+        echo -e "password = $PYPI_PASSWORD" >> ~/.pypirc
+        pip install twine
+        make deploy
