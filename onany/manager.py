@@ -1,8 +1,12 @@
 from typing import Dict, List
 
 
-class OnAny:
+class EventManager:
     _events_pool: Dict[str, List[callable]] = {}
+
+    @classmethod
+    def clear(cls):
+        cls._events_pool = {}
 
     @classmethod
     def listen(cls, event: str, callback: callable):
