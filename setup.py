@@ -9,6 +9,7 @@ with open(os.path.join("README.rst")) as file:
 with open(os.path.join("requirements.txt")) as file:
     requirements = file.read().split("\n")
 
+
 setup(
     name="onany",
     packages=["onany"],
