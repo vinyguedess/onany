@@ -6,6 +6,9 @@ with open(os.path.join("README.rst")) as file:
     readme = file.read()
 
 
+with open(os.path.join("requirements.txt")) as file:
+    requirements = file.read().split("\n")
+
 setup(
     name="onany",
     packages=["onany"],
@@ -20,7 +23,7 @@ setup(
     download_url="https://github.com/vinyguedess/onany/archive/master.zip",
     keywords=["event", "events", "listener", "dispatch"],
     
-    install_requires=[],
+    install_requires=requirements,
     
     classifiers=[
         'Development Status :: 5 - Production/Stable',
