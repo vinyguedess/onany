@@ -14,6 +14,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+
     - name: Set up Python
       uses: actions/setup-python@v1
       with:
@@ -33,7 +34,12 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
     - name: Run tests
+      env:
+        AMQP_HOST: ${{ secrets.AMQP_HOST }}
+        AMQP_USER: ${{ secrets.AMQP_USER }}
+        AMQP_PASS: ${{ secrets.AMQP_PASS }}
       run: |
+        pip install python-dotenv
         pip install coverage
         make citest
 

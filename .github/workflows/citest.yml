@@ -21,6 +21,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+
     - name: Set up Python
       uses: actions/setup-python@v1
       with:
@@ -47,7 +48,12 @@ jobs:
           ./cc-test-reporter before-build
 
     - name: Run tests
+      env:
+        AMQP_HOST: ${{ secrets.AMQP_HOST }}
+        AMQP_USER: ${{ secrets.AMQP_USER }}
+        AMQP_PASS: ${{ secrets.AMQP_PASS }}
       run: |
+        pip install python-dotenv
         pip install coverage
         make citest
     

@@ -1,6 +1,7 @@
 # App files and folders
 __pycache__
 .coverage
+.env
 build
 coverage
 dist

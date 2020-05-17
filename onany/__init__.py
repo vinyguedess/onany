@@ -1,13 +1,25 @@
 from threading import Thread
 from typing import Any, Dict, Union
-from onany.manager import EventManager
+from onany.manager import event_manager_factory
+from onany.manager.base import EventManager
 from onany.web import webhook_callback
+
+
+manager = event_manager_factory("memory")
+def set_manager(name: str, **kwargs):
+    global manager 
+    manager = event_manager_factory(name, **kwargs)
+
+
+def get_manager() -> EventManager:
+    global manager
+    return manager
 
 
 def clear_listeners():
     """Clear listeners registered"""
 
-    EventManager.clear()
+    get_manager().clear()
 
 
 def dispatch(event: str, *args, **kwargs) -> None:
@@ -18,7 +30,7 @@ def dispatch(event: str, *args, **kwargs) -> None:
     :param **kwargs: Optional keyed args to be redirect to listeners
     """
 
-    return EventManager.emit(event, *args, **kwargs)
+    return get_manager().emit(event, *args, **kwargs)
 
 
 def disthread(event: str, *args, **kwargs) -> Thread:
@@ -30,7 +42,7 @@ def disthread(event: str, *args, **kwargs) -> Thread:
     """
 
     thread: Thread = Thread(
-        target=EventManager.emit,
+        target=get_manager().emit,
         args=(event, *args,),
         kwargs=kwargs)
     thread.start()
@@ -90,14 +102,14 @@ def listener(event: str, callback: Union[callable, Dict[str, Any]] = None) -> ca
     """
 
     if callable(callback):
-        return EventManager.listen(event, callback)
+        return get_manager().listen(event, callback)
 
     if callback and isinstance(callback, dict):
-        return EventManager.listen(
+        return get_manager().listen(
             event, 
             webhook_callback(callback))
 
     def wrapper(callback: callable) -> None:
-        return EventManager.listen(event, callback)
+        return get_manager().listen(event, callback)
 
     return wrapper
